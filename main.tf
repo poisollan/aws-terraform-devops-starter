@@ -97,11 +97,12 @@ data "aws_ami" "amazon_linux" {
 }
 
 resource "aws_instance" "devops_server" {
-  ami                    = data.aws_ami.amazon_linux.id
-  instance_type          = var.instance_type
-  subnet_id              = aws_subnet.public_subnet.id
-  vpc_security_group_ids = [aws_security_group.devops_sg.id]
-  key_name               = var.key_name
+  ami                         = data.aws_ami.amazon_linux.id
+  instance_type               = var.instance_type
+  subnet_id                   = aws_subnet.public_subnet.id
+  vpc_security_group_ids      = [aws_security_group.devops_sg.id]
+  key_name                    = var.key_name
+  associate_public_ip_address = true
 
   user_data = <<-EOF
 #!/bin/bash
@@ -110,8 +111,6 @@ yum install -y docker
 systemctl enable docker
 systemctl start docker
 usermod -aG docker ec2-user
-sleep 20
-docker run -d -p 80:5000 ${var.docker_image}
 EOF
 
   tags = {
