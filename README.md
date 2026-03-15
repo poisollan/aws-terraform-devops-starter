@@ -168,5 +168,6 @@ Docker image must be available on Docker Hub
 This project is for learning and portfolio use
 
 
+## Architecture
 
-
+![DevOps Architecture](architecture.png)
