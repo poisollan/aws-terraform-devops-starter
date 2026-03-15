@@ -1,0 +1,40 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Sensitive files
+*.pem
+*.key
+
+# Archives
+*.zip
+
+# binaries
+linux_amd64/
+
+# AWS CLI extracted folder
+aws/
+
+# Python
+__pycache__/
+*.pyc# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Sensitive files
+*.pem
+*.key
+
+# Archives
+*.zip
+
+# binaries
+linux_amd64/
+
+# Python
+__pycache__/
+*.pyc
