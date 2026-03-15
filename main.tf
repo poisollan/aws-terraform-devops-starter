@@ -6,18 +6,20 @@ resource "aws_vpc" "devops_vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "devops-vpc"
+    Name    = "devops-vpc"
+    Project = var.project_name
   }
 }
 
 resource "aws_subnet" "public_subnet" {
   vpc_id                  = aws_vpc.devops_vpc.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "us-east-1a"
+  availability_zone       = var.availability_zone
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "devops-public-subnet"
+    Name    = "devops-public-subnet"
+    Project = var.project_name
   }
 }
 
@@ -25,7 +27,8 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.devops_vpc.id
 
   tags = {
-    Name = "devops-igw"
+    Name    = "devops-igw"
+    Project = var.project_name
   }
 }
 
@@ -38,7 +41,8 @@ resource "aws_route_table" "public_rt" {
   }
 
   tags = {
-    Name = "devops-public-rt"
+    Name    = "devops-public-rt"
+    Project = var.project_name
   }
 }
 
@@ -56,7 +60,7 @@ resource "aws_security_group" "devops_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.allowed_ssh_cidr]
   }
 
   ingress {
@@ -64,14 +68,20 @@ resource "aws_security_group" "devops_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.allowed_http_cidr]
   }
 
   egress {
+    description = "Allow all outbound"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name    = "devops-sg"
+    Project = var.project_name
   }
 }
 
@@ -97,19 +107,15 @@ resource "aws_instance" "devops_server" {
 #!/bin/bash
 yum update -y
 yum install -y docker
-
 systemctl enable docker
 systemctl start docker
-
 usermod -aG docker ec2-user
-
 sleep 20
-
-docker run -d -p 80:5000 mohanbakthi/mohan-flask-app
-
+docker run -d -p 80:5000 ${var.docker_image}
 EOF
 
   tags = {
-    Name = "devops-server"
+    Name    = "devops-server"
+    Project = var.project_name
   }
 }
