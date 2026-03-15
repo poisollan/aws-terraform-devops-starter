@@ -38,5 +38,9 @@ jobs:
           script: |
             sudo docker stop flask-app || true
             sudo docker rm flask-app || true
+            sudo docker stop nginx || true
+            sudo docker rm nginx || true
+            sudo docker ps -q | xargs -r sudo docker stop
+            sudo docker ps -aq | xargs -r sudo docker rm
             sudo docker pull mohanbakthi/mohan-flask-app:latest
             sudo docker run -d --name flask-app -p 80:5000 mohanbakthi/mohan-flask-app:latest
