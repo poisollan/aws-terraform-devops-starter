@@ -301,6 +301,16 @@ https://github.com/poisollan
 
 ---
 
+
+
+Full DevOps Starter Kit Download
+
+You can download the packaged version of this project here:
+
+https://mkverse48.gumroad.com/l/syumxb
+
+The download includes a clean project template, setup guide, and documentation.
+
 # License
 
 This project is licensed under the MIT License.
