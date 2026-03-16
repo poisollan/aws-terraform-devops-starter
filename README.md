@@ -1,202 +1,307 @@
-🚀 Need help deploying this infrastructure?
+# AWS DevOps Starter Kit
 
-I provide DevOps consulting and infrastructure setup services.
-See: SERVICES.md
+Terraform + Docker + GitHub Actions CI/CD
 
+This project demonstrates a complete DevOps workflow to deploy a containerized application on AWS using **Terraform**, **Docker**, and **GitHub Actions CI/CD**.
 
+The infrastructure is created automatically and the application is deployed via a CI/CD pipeline.
 
+---
 
+# Features
 
+• Infrastructure as Code using Terraform
+• AWS VPC and EC2 infrastructure provisioning
+• Dockerized Flask application
+• GitHub Actions CI/CD pipeline
+• Automatic deployment to AWS EC2
+• Step-by-step setup instructions
+• Architecture documentation
 
-# AWS Terraform Docker Flask DevOps Project
+---
 
-This project demonstrates a simple DevOps workflow using Terraform, Docker, Flask, and AWS.
+# Architecture
 
-## Features
+![Architecture Diagram](architecture.png)
 
-- Creates AWS infrastructure using Terraform
-- Launches an EC2 instance in a public subnet
-- Installs Docker automatically using EC2 user data
-- Pulls and runs a Flask app container from Docker Hub
-- Exposes the application through the EC2 public IP
+Deployment workflow:
 
-## Technologies Used
+Developer → GitHub → GitHub Actions → Docker Hub → AWS EC2 → Docker Container → Flask Application
 
-- Terraform
-- AWS EC2, VPC, Subnet, Internet Gateway, Route Table, Security Group
-- Docker
-- Flask
+---
 
-## Project Structure
-
-```text
-aws-terraform-devops-starter
-├── app/
-│   ├── app.py
-│   └── Dockerfile
-├── main.tf
-├── variables.tf
-├── outputs.tf
-├── .gitignore
-├── .terraform.lock.hcl
-└── README.md
-
-Infrastructure Created
-
-*VPC
-
-*Public Subnet
-
-*Internet Gateway
-
-*Route Table
-
-*Route Table Association
-
-*Security Group
-
-*EC2 Instance
-
-
-Deployment Flow
-
-1.Terraform creates AWS infrastructure
-
-2.EC2 launches with user data
-
-3.Docker is installed automatically
-
-4.EC2 pulls the Flask image from Docker Hub
-
-5.Application becomes accessible through public IP
-
-Usage
-Initialize Terraform
-
-terraform init
-# AWS Terraform Docker Flask DevOps Project
-
-This project demonstrates a simple DevOps workflow using Terraform, Docker, Flask, and AWS.
-
-## Features
-
-- Creates AWS infrastructure using Terraform
-- Launches an EC2 instance in a public subnet
-- Installs Docker automatically using EC2 user data
-- Pulls and runs a Flask app container from Docker Hub
-- Exposes the application through the EC2 public IP
-
-## Technologies Used
-
-- Terraform
-- AWS EC2, VPC, Subnet, Internet Gateway, Route Table, Security Group
-- Docker
-- Flask
-
-## Project Structure
+# Project Structure
 
 ```text
 aws-terraform-devops-starter
-├── app/
+│
+├── app/                   # Flask application and Docker configuration
 │   ├── app.py
+│   ├── requirements.txt
 │   └── Dockerfile
-├── main.tf
-├── variables.tf
-├── outputs.tf
-├── .gitignore
-├── .terraform.lock.hcl
-└── README.md
+│
+├── terraform/             # Terraform infrastructure configuration
+│   ├── main.tf
+│   ├── variables.tf
+│   └── outputs.tf
+│
+├── .github/workflows/     # GitHub Actions CI/CD pipeline
+│   └── deploy.yml
+│
+├── README.md              # Project overview
+├── SETUP_GUIDE.md         # Deployment instructions
+├── SERVICES.md            # DevOps services offered
+├── ARCHITECTURE.md        # Infrastructure explanation
+├── architecture.png       # Architecture diagram
+└── LICENSE
+```
 
+---
 
-Infrastructure Created
+# Prerequisites
 
-VPC
+Before starting ensure you have:
 
-Public Subnet
+• AWS Account
+• Docker Hub Account
+• GitHub Account
+• Git installed
+• Terraform installed
+• AWS CLI installed
 
-Internet Gateway
+---
 
-Route Table
+# Step 1 — Clone the Repository
 
-Route Table Association
+```bash
+git clone https://github.com/YOUR_USERNAME/aws-terraform-devops-starter.git
+cd aws-terraform-devops-starter
+```
 
-Security Group
+---
 
-EC2 Instance
+# Step 2 — Configure AWS Credentials
 
+Run:
 
-Deployment Flow
+```bash
+aws configure
+```
 
-Terraform creates AWS infrastructure
+Enter your credentials:
 
-EC2 launches with user data
+```
+AWS Access Key
+AWS Secret Key
+Region (example: us-east-1)
+Output format: json
+```
 
-Docker is installed automatically
+---
 
-EC2 pulls the Flask image from Docker Hub
+# Step 3 — Create AWS Key Pair
 
-Application becomes accessible through public IP
+Go to:
 
+AWS Console → EC2 → Key Pairs → Create Key Pair
 
-Usage
-1.Initialize Terraform
+Example name:
+
+```
+devops-key
+```
+
+Download the `.pem` file.
+
+---
+
+# Step 4 — Configure Terraform Variables
+
+Open the Terraform variables file and update values if necessary.
+
+Example values:
+
+```
+region = "us-east-1"
+instance_type = "t2.micro"
+key_name = "devops-key"
+```
+
+---
+
+# Step 5 — Deploy Infrastructure
+
+Terraform files are located inside the **terraform/** directory.
+
+Run commands from that folder.
+
+Initialize Terraform:
+
+```bash
+cd terraform
 terraform init
+```
 
-2.Preview changes
+Preview resources:
+
+```bash
 terraform plan
+```
 
-3.Apply infrastructure
+Deploy infrastructure:
+
+```bash
 terraform apply
+```
 
-4.Destroy infrastructure
-terraform destroy
+Terraform will create:
 
+• VPC
+• Subnet
+• Internet Gateway
+• Route Table
+• Security Group
+• EC2 Instance
 
-Output
+After deployment Terraform outputs:
 
-After apply, Terraform prints:
-
+```
 website_ip
+```
 
-website_url
+Example:
 
-instance_id
+```
+http://44.xxx.xxx.xxx
+```
 
-vpc_id
+---
 
-subnet_id
+# Step 6 — Configure GitHub Repository
 
-security_group_id
+Push the project to GitHub.
 
+Initialize git:
 
-Notes
+```bash
+git init
+```
 
-SSH key pair must already exist in AWS
+Add files:
 
-Docker image must be available on Docker Hub
+```bash
+git add .
+```
 
-This project is for learning and portfolio use
+Commit:
 
+```bash
+git commit -m "Initial DevOps project"
+```
 
-## Architecture
+Connect repository:
 
-![DevOps Architecture](architecture.png)
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/aws-terraform-devops-starter.git
+```
 
+Push code:
 
+```bash
+git branch -M main
+git push -u origin main
+```
 
+---
 
-## DevOps Infrastructure Services
+# Step 7 — Configure GitHub Secrets
+
+Go to your repository:
+
+GitHub → Settings → Secrets and variables → Actions
+
+Add the following secrets.
+
+### Docker Hub Secrets
+
+```
+DOCKERHUB_USERNAME
+DOCKERHUB_TOKEN
+```
+
+### EC2 Deployment Secrets
+
+```
+EC2_HOST
+EC2_USERNAME
+EC2_SSH_KEY
+```
+
+Example values:
+
+```
+EC2_HOST = EC2 public IP
+EC2_USERNAME = ec2-user
+EC2_SSH_KEY = contents of your devops-key.pem file
+DOCKERHUB-USERNAME = mohanvalli
+DOCKERHUB_TOKEN = 33E3BNKN76gyuguyg (personal access token)
+```
+
+---
+
+# Step 8 — CI/CD Pipeline
+
+When code is pushed to the **main branch**, GitHub Actions will automatically:
+
+1. Build the Docker image
+2. Push the image to Docker Hub
+3. Connect to EC2 via SSH
+4. Deploy the latest container
+
+---
+
+# Step 9 — Access the Application
+
+After deployment open your browser:
+
+```
+http://EC2_PUBLIC_IP
+```
+
+Your Flask application will be running.
+
+---
+
+# Destroy Infrastructure
+
+To remove AWS resources:
+
+```bash
+cd terraform
+terraform destroy
+```
+
+---
+
+# DevOps Infrastructure Services
 
 If you need help deploying this project or building custom infrastructure, I offer DevOps consulting services.
 
 Services offered:
 
-• AWS Infrastructure Automation using Terraform  
-• CI/CD Pipeline Setup (GitHub Actions / GitLab CI)  
-• Docker Application Deployment  
-• Cloud Infrastructure Architecture  
-• Production-ready DevOps setup for startups  
+• AWS Infrastructure Automation using Terraform
+• CI/CD Pipeline Setup
+• Docker Application Deployment
+• Cloud Infrastructure Architecture
+• Production-ready DevOps setup
 
-If you need a **custom infrastructure setup for your project or startup**, feel free to contact.
+Contact:
 
-GitHub: https://github.com/poisollan
+https://github.com/poisollan
+
+---
+
+# License
+
+This project is licensed under the MIT License.
+
