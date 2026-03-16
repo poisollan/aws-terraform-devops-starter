@@ -1,3 +1,13 @@
+🚀 Need help deploying this infrastructure?
+
+I provide DevOps consulting and infrastructure setup services.
+See: SERVICES.md
+
+
+
+
+
+
 # AWS Terraform Docker Flask DevOps Project
 
 This project demonstrates a simple DevOps workflow using Terraform, Docker, Flask, and AWS.
@@ -171,3 +181,22 @@ This project is for learning and portfolio use
 ## Architecture
 
 ![DevOps Architecture](architecture.png)
+
+
+
+
+## DevOps Infrastructure Services
+
+If you need help deploying this project or building custom infrastructure, I offer DevOps consulting services.
+
+Services offered:
+
+• AWS Infrastructure Automation using Terraform  
+• CI/CD Pipeline Setup (GitHub Actions / GitLab CI)  
+• Docker Application Deployment  
+• Cloud Infrastructure Architecture  
+• Production-ready DevOps setup for startups  
+
+If you need a **custom infrastructure setup for your project or startup**, feel free to contact.
+
+GitHub: https://github.com/poisollan
